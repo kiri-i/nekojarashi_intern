@@ -34,18 +34,17 @@ puts ("#{input}回実行します")
 input.times{
 	# 配列からランダムに取り出して文字列に代入
 	# メールアドレス
-	random_alphanumeric = alphanumeric.sample(8).join
+	random_alphanumeric = alphanumeric.sample(2).join
 	mail_account = random_alphanumeric
 	mail_address =  (mail_account + "@backstore.jp")
 
 	# パスワード
-	random_alphanumeric_Exclusion = alphanumeric_Exclusion.sample(8).join
+	random_alphanumeric_Exclusion = alphanumeric_Exclusion.sample(2).join
 	passwd = (random_alphanumeric_Exclusion)
 
 	#配列に代入
 	data << [mail_address, passwd]
 	data_chack << [mail_account, passwd]
-
 }
 
 
@@ -53,27 +52,50 @@ input.times{
 # p data.size
 # p data.uniq.size
 
-# p data_chack.size
-# p data_chack.uniq.size
+# 重複個数
+overlap = data_chack.size - data_chack.uniq.size
+p overlap 
+
+until overlap == 0 do
+	overlap = data_chack.size - data_chack.uniq.size
+
+	random_alphanumeric = alphanumeric.sample(2).join
+	mail_account = random_alphanumeric
+	mail_address =  (mail_account + "@backstore.jp")
+
+	# パスワード
+	random_alphanumeric_Exclusion = alphanumeric_Exclusion.sample(2).join
+	passwd = (random_alphanumeric_Exclusion)
+
+	#配列に代入
+	data << [mail_address, passwd]
+	data_chack << [mail_account, passwd]
+
+	overlap = data_chack.size - data_chack.uniq.size
+	p overlap
+end
+
+p overlap
+
+
 
 
 # dataをCSVで出力
 require 'csv'
-CSV.open("accounts.csv", "w",) do |writer|
+CSV.open("test_accounts.csv", "w",) do |writer|
 	writer << ["アカウント", "パスワード"]
 	data.each do |item|
 		writer << item
 	end
 end
 
-
 # data_chackをCSVで出力
-#require 'csv'
-#CSV.open("data_chack.csv", "w",) do |writer|
-#	writer << ["アカウント", "パスワード"]
-#	data_chack.each do |item|
-#		writer << item
-#	end
-#end
+require 'csv'
+CSV.open("test_data_chack.csv", "w",) do |writer|
+	writer << ["アカウント", "パスワード"]
+	data_chack.each do |item|
+		writer << item
+	end
+end
 
 
