@@ -1,3 +1,3 @@
-# neko_intern
+# nekojarashi_intern
 
-### インターンで作成したファイル
+### ねこじゃらしインターンで作ったもの
