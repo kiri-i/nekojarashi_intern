@@ -1,4 +1,4 @@
-puts("課題：基本1")
+puts("課題：応用1用のテスト")
 # ランダム処理
 
 # 英数字の配列を生成
@@ -20,8 +20,8 @@ small_letter.delete("l")
 alphanumeric_Exclusion = number + small_letter + big_letter
 
 # 配列を作成
-data = Array.new		#️ 出力用
-data_chack = Array.new	# 重複確認用
+data = Array.new				# 出力用
+data_check = Array.new	# 重複確認用
 
 #入力
 puts("実行回数を入力してください")
@@ -44,7 +44,7 @@ input.times{
 
 	#配列に代入
 	data << [mail_address, passwd]
-	data_chack << [mail_account, passwd]
+	data_check << [mail_account, passwd]
 }
 
 
@@ -53,11 +53,11 @@ input.times{
 # p data.uniq.size
 
 # 重複個数
-overlap = data_chack.size - data_chack.uniq.size
-p overlap 
+overlap = data_check.size - data_check.uniq.size
+p overlap
 
 until overlap == 0 do
-	overlap = data_chack.size - data_chack.uniq.size
+	overlap = data_check.size - data_check.uniq.size
 
 	random_alphanumeric = alphanumeric.sample(2).join
 	mail_account = random_alphanumeric
@@ -69,9 +69,11 @@ until overlap == 0 do
 
 	#配列に代入
 	data << [mail_address, passwd]
-	data_chack << [mail_account, passwd]
+	data_check << [mail_account, passwd]
 
-	overlap = data_chack.size - data_chack.uniq.size
+	overlap = data_check.size - data_check.uniq.size
+	data_check.uniq!
+
 	p overlap
 end
 
@@ -89,13 +91,11 @@ CSV.open("test_accounts.csv", "w",) do |writer|
 	end
 end
 
-# data_chackをCSVで出力
+# data_checkをCSVで出力
 require 'csv'
-CSV.open("test_data_chack.csv", "w",) do |writer|
+CSV.open("test_data_check.csv", "w",) do |writer|
 	writer << ["アカウント", "パスワード"]
-	data_chack.each do |item|
+	data_check.each do |item|
 		writer << item
 	end
 end
-
-
